@@ -29,6 +29,11 @@ function HomePage() {
         if (data.message) {
           setMessage(data.message);
           setTimeout(() => setMessage(""), 4000);
+          if(data.message === "Login Success"){
+            localStorage.setItem('token', data.jwtToken);
+            localStorage.setItem('user', data.name);
+            localStorage.setItem('email', data.email)
+          }
         }
         console.log(data);
       })
@@ -96,15 +101,9 @@ function HomePage() {
             </Dropdown.Toggle>
 
             <Dropdown.Menu>
-              <Dropdown.Item href="#/action-1" eventKey="admin">
-                --------
-              </Dropdown.Item>
-              <Dropdown.Item href="#/action-2" eventKey="teacher">
-                Teacher
-              </Dropdown.Item>
-              <Dropdown.Item href="#/action-3" eventKey="student">
-                Student
-              </Dropdown.Item>
+              <Dropdown.Item eventKey="admin">--------</Dropdown.Item>
+              <Dropdown.Item eventKey="teacher">Teacher</Dropdown.Item>
+              <Dropdown.Item eventKey="student">Student</Dropdown.Item>
             </Dropdown.Menu>
           </Dropdown>
           <div className="mb-3"></div>

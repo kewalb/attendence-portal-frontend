@@ -2,6 +2,7 @@ import "./App.css";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import HomePage from "./components/Homepage/HomePage";
 import ForgotPassword from "./components/ForgotPassword/ForgotPassword";
+import ForgotPasswordForm from "./components/ForgotPasswordForm/ForgotPasswordForm";
 
 function App() {
   return (
@@ -13,6 +14,9 @@ function App() {
           </Route>
           <Route path="/forgot-password">
             <ForgotPassword />
+          </Route>
+          <Route path="/reset-password-form/:choice/:token">
+            <ForgotPasswordForm />
           </Route>
         </Switch>
       </BrowserRouter>
