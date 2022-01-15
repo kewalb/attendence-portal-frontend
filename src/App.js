@@ -3,6 +3,7 @@ import { BrowserRouter, Switch, Route } from "react-router-dom";
 import HomePage from "./components/Homepage/HomePage";
 import ForgotPassword from "./components/ForgotPassword/ForgotPassword";
 import ForgotPasswordForm from "./components/ForgotPasswordForm/ForgotPasswordForm";
+import AdminDashboard from "./components/AdminDashboard/AdminDashboard";
 
 function App() {
   return (
@@ -17,6 +18,9 @@ function App() {
           </Route>
           <Route path="/reset-password-form/:choice/:token">
             <ForgotPasswordForm />
+          </Route>
+          <Route path="/admin-dashboard">
+            <AdminDashboard />
           </Route>
         </Switch>
       </BrowserRouter>

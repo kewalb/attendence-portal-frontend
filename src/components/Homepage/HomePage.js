@@ -33,9 +33,9 @@ function HomePage() {
             localStorage.setItem('token', data.jwtToken);
             localStorage.setItem('user', data.name);
             localStorage.setItem('email', data.email)
+            history.push('/admin-dashboard')
           }
         }
-        console.log(data);
       })
       .catch((error) => {
         setMessage("Something went wrong");
