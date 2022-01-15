@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Dropdown } from "react-bootstrap";
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import "./Homepage.css";
 
 function HomePage() {
@@ -7,6 +8,7 @@ function HomePage() {
   const [password, setPassword] = useState("");
   const [choice, setChoice] = useState("");
   const [message, setMessage] = useState("");
+  const history = useHistory();
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
@@ -127,7 +129,13 @@ function HomePage() {
             className="d-xl-flex justify-content-xl-center"
             style={{ fontSize: "small" }}
           >
-            Forgot Password? Click Here
+            Forgot Password?{" "}
+            <span
+              style={{ color: "cadetblue", cursor: "pointer" }}
+              onClick={() => history.push("forgot-password")}
+            >
+              Click Here
+            </span>
           </p>
         </form>
       </div>

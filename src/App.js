@@ -1,11 +1,21 @@
-
-import './App.css';
-import HomePage from './components/Homepage/HomePage';
+import "./App.css";
+import { BrowserRouter, Switch, Route } from "react-router-dom";
+import HomePage from "./components/Homepage/HomePage";
+import ForgotPassword from "./components/ForgotPassword/ForgotPassword";
 
 function App() {
   return (
     <div className="App">
-      <HomePage />
+      <BrowserRouter>
+        <Switch>
+          <Route path="/" exact>
+            <HomePage />
+          </Route>
+          <Route path="/forgot-password">
+            <ForgotPassword />
+          </Route>
+        </Switch>
+      </BrowserRouter>
     </div>
   );
 }
