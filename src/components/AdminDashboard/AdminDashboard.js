@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { BrowserRouter, Switch, Route, Link } from "react-router-dom";
+import Register from '../Register/Register'
 import "./AdminDashboard.css";
 
-function AdminDashboard() {
+function AdminDashboard({match}) {
+  
   return (
     <BrowserRouter>
       <div id="page-top">
@@ -22,7 +24,7 @@ function AdminDashboard() {
                   <div className="nav-link">
                     <span>
                       <Link
-                        to=""
+                        to={`${match.url}/register`}
                         style={{
                           textDecoration: "None",
                           color: "inherit",
@@ -82,7 +84,13 @@ function AdminDashboard() {
             </div>
           </nav>
           <Switch>
+            <Route path={`${match.url}/`} exact>
             <Dashboard />
+            </Route>
+            <Route path={`${match.url}/register`} exact>
+              <Register />
+            </Route>
+            
           </Switch>
         </div>
       </div>
@@ -92,6 +100,8 @@ function AdminDashboard() {
 
 export default AdminDashboard;
 
+
+// Dashboard component for readability
 function Dashboard() {
   const [teacherCount, setTeacherCount] = useState("");
   const [studentCount, setStudentCount] = useState("");

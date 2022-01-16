@@ -19,8 +19,8 @@ function App() {
           <Route path="/reset-password-form/:choice/:token">
             <ForgotPasswordForm />
           </Route>
-          <Route path="/admin-dashboard">
-            <AdminDashboard />
+          <Route path="/admin-dashboard" component={AdminDashboard}>
+            {/* <AdminDashboard /> */}
           </Route>
         </Switch>
       </BrowserRouter>
