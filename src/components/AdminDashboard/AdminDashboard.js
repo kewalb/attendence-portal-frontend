@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { BrowserRouter, Switch, Route, Link } from "react-router-dom";
+import Edit from "../Edit/Edit";
 import Register from '../Register/Register'
+import Remove from "../Remove/Remove";
 import "./AdminDashboard.css";
 
 function AdminDashboard({match}) {
-  
+  console.log(match)
   return (
     <BrowserRouter>
       <div id="page-top">
@@ -39,7 +41,7 @@ function AdminDashboard({match}) {
                 <li className="nav-item">
                   <div className="nav-link">
                     <Link
-                      to=""
+                      to={`${match.url}/edit/:email`}
                       style={{
                         textDecoration: "None",
                         color: "inherit",
@@ -51,7 +53,7 @@ function AdminDashboard({match}) {
                   </div>
                   <div className="nav-link">
                     <Link
-                      to=""
+                      to={`${match.url}/remove/`}
                       style={{
                         textDecoration: "None",
                         color: "inherit",
@@ -89,6 +91,12 @@ function AdminDashboard({match}) {
             </Route>
             <Route path={`${match.url}/register`} exact>
               <Register />
+            </Route>
+            <Route path={`${match.url}/edit/:email`} exact>
+              <Edit />
+            </Route>
+            <Route path={`${match.url}/remove/`} exact>
+              <Remove />
             </Route>
             
           </Switch>
