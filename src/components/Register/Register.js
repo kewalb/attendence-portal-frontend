@@ -38,7 +38,7 @@ function RegisterTeacher() {
   const [qual, setQual] = useState("");
 
   const handleSubmit = () => {
-    fetch(`http://localhost:9000/teacher/signup`, {
+    fetch(`https://attendence-portal.herokuapp.com/teacher/signup`, {
       method: "POST",
       headers: {
         "Content-type": "application/json",
@@ -162,7 +162,7 @@ function RegisterStudent() {
   const [roll, setRoll] = useState('');
 
   const handleSubmit = () => {
-    fetch(`http://localhost:9000/student/signup`, {
+    fetch(`https://attendence-portal.herokuapp.com/student/signup`, {
       method: "POST",
       headers: {
         "Content-type": "application/json",

@@ -10,7 +10,7 @@ function Edit() {
   // console.log(formData);
 
   const handleSearch = async () => {
-    await fetch(`http://localhost:9000/admin/dashboard/${choice}-detail/${email}`)
+    await fetch(`https://attendence-portal.herokuapp.com/admin/dashboard/${choice}-detail/${email}`)
       .then((response) => response.json())
       .then((data) => setFormData([data]))
       .catch((error) => console.log(error));
@@ -83,14 +83,14 @@ function EditTeacher({ parameter }) {
 
   useEffect( () => {
     console.log("hello")
-     fetch(`http://localhost:9000/admin/dashboard/teacher-detail/${parameter}`)
+     fetch(`https://attendence-portal.herokuapp.com/admin/dashboard/teacher-detail/${parameter}`)
       .then((response) => response.json())
       .then((data) => setFormData(data))
       .catch((error) => console.log(error));
   })
 
   const handleSubmit = () => {
-    fetch(`http://localhost:9000/teacher/signup`, {
+    fetch(`https://attendence-portal.herokuapp.com/teacher/signup`, {
       method: "POST",
       headers: {
         "Content-type": "application/json",
@@ -211,7 +211,7 @@ function EditStudent({ data }) {
   const [roll, setRoll] = useState("");
 
   const handleSubmit = () => {
-    fetch(`http://localhost:9000/student/signup`, {
+    fetch(`https://attendence-portal.herokuapp.com/student/signup`, {
       method: "POST",
       headers: {
         "Content-type": "application/json",

@@ -124,10 +124,10 @@ function Dashboard() {
   console.log(data)
 
   useEffect(() => {
-    fetch(`http://localhost:9000/admin/dashboard/teacher-detail/${email}`)
+    fetch(`https://attendence-portal.herokuapp.com/admin/dashboard/teacher-detail/${email}`)
       .then((response) => response.json())
       .then((data) => {
-        fetch(`http://localhost:9000/teacher/dashboard/count/${data.data.department}`)
+        fetch(`https://attendence-portal.herokuapp.com/teacher/dashboard/count/${data.data.department}`)
       .then((response) => response.json())
       .then((data) => {
         console.log(data)

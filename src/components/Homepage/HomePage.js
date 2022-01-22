@@ -17,7 +17,7 @@ function HomePage() {
     setPassword(e.target.value);
   };
   const handleSubmit = () => {
-    fetch(`http://localhost:9000/${choice}/login`, {
+    fetch(`https://attendence-portal.herokuapp.com/${choice}/login`, {
       method: "POST",
       headers: {
         "Content-type": "application/json",

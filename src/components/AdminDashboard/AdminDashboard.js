@@ -128,7 +128,7 @@ function Dashboard() {
   const [studentCount, setStudentCount] = useState("");
 
   useEffect(() => {
-    fetch("http://localhost:9000/admin/dashboard/count")
+    fetch("https://attendence-portal.herokuapp.com/admin/dashboard/count")
       .then((response) => response.json())
       .then((data) => {
         setStudentCount(data.countStudent);

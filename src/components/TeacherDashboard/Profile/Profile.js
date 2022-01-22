@@ -13,7 +13,7 @@ function Profile() {
     const email = localStorage.getItem("email")
 
     useEffect(() => {
-        fetch(`http://localhost:9000/admin/dashboard/teacher-detail/${email}`)
+        fetch(`https://attendence-portal.herokuapp.com/admin/dashboard/teacher-detail/${email}`)
         .then((response) => response.json())
         .then((data) => {
             setDept(data.data.department)
@@ -29,7 +29,7 @@ function Profile() {
 
 
     const handleUpdate = () => {
-        fetch(`http://localhost:9000/teacher/dashboard/update-teacher/${id}`, {
+        fetch(`https://attendence-portal.herokuapp.com/teacher/dashboard/update-teacher/${id}`, {
             method: "PUT",
             headers: {
               "Content-type": "application/json",

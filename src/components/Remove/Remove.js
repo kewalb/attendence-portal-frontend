@@ -11,7 +11,7 @@ function Remove() {
   console.log(data);
 
   const handleSubmit = () => {
-    fetch(`http://localhost:9000/admin/dashboard/${choice}-detail/${email}`)
+    fetch(`https://attendence-portal.herokuapp.com/admin/dashboard/${choice}-detail/${email}`)
       .then((response) => response.json())
       .then((data) => {
         if(data.message === "No Record Found"){
@@ -25,7 +25,7 @@ function Remove() {
   };
 
   const handleDelete = () => {
-    fetch(`http://localhost:9000/admin/dashboard/remove-${choice}/${email}`, {
+    fetch(`https://attendence-portal.herokuapp.com/admin/dashboard/remove-${choice}/${email}`, {
       method: "DELETE",
       headers: {
         "Content-type": "application/json",

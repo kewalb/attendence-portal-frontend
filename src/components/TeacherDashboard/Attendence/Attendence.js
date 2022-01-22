@@ -6,11 +6,11 @@ function Attendence() {
   const email = localStorage.getItem("email");
 
   useEffect(() => {
-    fetch(`http://localhost:9000/admin/dashboard/teacher-detail/${email}`)
+    fetch(`https://attendence-portal.herokuapp.com/admin/dashboard/teacher-detail/${email}`)
       .then((response) => response.json())
       .then((data) => {
         fetch(
-          `http://localhost:9000/teacher/dashboard/student-detail-batch/${data.data.department}`
+          `https://attendence-portal.herokuapp.com/teacher/dashboard/student-detail-batch/${data.data.department}`
         )
           .then((response) => response.json())
           .then((data) => setData(data.data))
@@ -45,7 +45,7 @@ function Attendence() {
   };
 
   const handlePresent = (id) => {
-    fetch(`http://localhost:9000/teacher/dashboard/mark-attendence/${id}`, {
+    fetch(`https://attendence-portal.herokuapp.com/teacher/dashboard/mark-attendence/${id}`, {
       method: "POST",
       headers: {
         "Content-type": "application/json",
@@ -61,7 +61,7 @@ function Attendence() {
     setArray([...array, id]);
   };
   const handleLeave = (id) => {
-    fetch(`http://localhost:9000/teacher/dashboard/mark-attendence/${id}`, {
+    fetch(`https://attendence-portal.herokuapp.com/teacher/dashboard/mark-attendence/${id}`, {
       method: "POST",
       headers: {
         "Content-type": "application/json",

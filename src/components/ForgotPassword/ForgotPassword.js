@@ -13,7 +13,7 @@ function ForgotPassword() {
   };
 
   const handleSubmit = () => {
-    fetch(`http://localhost:9000/${choice}/forgot-password`, {
+    fetch(`https://attendence-portal.herokuapp.com/${choice}/forgot-password`, {
       method: "POST",
       headers: {
         "Content-type": "application/json",

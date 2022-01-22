@@ -14,7 +14,7 @@ function ForgotPasswordForm() {
         if(password !== passwordConfirm){
             setMessage("password did not match")
         }
-        fetch(`http://localhost:9000/${choice}/new-password`, {
+        fetch(`https://attendence-portal.herokuapp.com/${choice}/new-password`, {
         method: "POST",
         headers: {
           "Content-type": "application/json",
