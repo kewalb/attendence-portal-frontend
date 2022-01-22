@@ -4,6 +4,8 @@ import HomePage from "./components/Homepage/HomePage";
 import ForgotPassword from "./components/ForgotPassword/ForgotPassword";
 import ForgotPasswordForm from "./components/ForgotPasswordForm/ForgotPasswordForm";
 import AdminDashboard from "./components/AdminDashboard/AdminDashboard";
+import ProtectedRoute from "./components/ProtectedRoutes";
+import TeacherDashboard from "./components/TeacherDashboard/TeacherDashboard";
 
 function App() {
   return (
@@ -19,9 +21,12 @@ function App() {
           <Route path="/reset-password-form/:choice/:token">
             <ForgotPasswordForm />
           </Route>
-          <Route path="/admin-dashboard" component={AdminDashboard}>
+          <ProtectedRoute path="/admin-dashboard" component={AdminDashboard}>
             {/* <AdminDashboard /> */}
-          </Route>
+          </ProtectedRoute>
+          <ProtectedRoute path="/teacher-dashboard" component={TeacherDashboard}>
+            {/* <AdminDashboard /> */}
+          </ProtectedRoute>
         </Switch>
       </BrowserRouter>
     </div>

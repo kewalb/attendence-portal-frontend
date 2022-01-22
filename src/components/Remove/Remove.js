@@ -7,7 +7,6 @@ function Remove() {
   const [choice, setChoice] = useState("");
   const [email, setEmail] = useState("");
   const [data, setData] = useState("");
-  const history = useHistory()
 
   console.log(data);
 

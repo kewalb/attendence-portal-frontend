@@ -28,17 +28,25 @@ function HomePage() {
       .then((data) => {
         if (data.message) {
           setMessage(data.message);
-          setTimeout(() => setMessage(""), 4000);
-          if(data.message === "Login Success"){
-            localStorage.setItem('token', data.jwtToken);
-            localStorage.setItem('user', data.name);
-            localStorage.setItem('email', data.email)
-            history.push('/admin-dashboard')
+          if (data.message === "Login Success") {
+            localStorage.setItem("token", data.jwtToken);
+            localStorage.setItem("user", data.name);
+            localStorage.setItem("email", data.email);
+            if (choice === "admin") {
+              history.push("/admin-dashboard");
+            }
+            if(choice === "teacher"){
+            history.push("/teacher-dashboard");
+            }
+            if(choice==="student"){
+              history.push("/")
+            }
           }
         }
       })
       .catch((error) => {
         setMessage("Something went wrong");
+        console.log(error);
         setTimeout(() => setMessage(""), 4000);
       });
   };
