@@ -31,7 +31,7 @@ function Profile() {
 
 
     const handleUpdate = () => {
-        fetch(`http://localhost:9000/student/dashboard/update-student/${id}`, {
+        fetch(`https://attendence-portal.herokuapp.com/student/dashboard/update-student/${id}`, {
             method: "PUT",
             headers: {
               "Content-type": "application/json",
