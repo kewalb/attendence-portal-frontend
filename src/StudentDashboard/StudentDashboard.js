@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { BrowserRouter, Switch, Route, Link } from "react-router-dom";
+import Attendence from "./Attendence/Attendence";
+import Profile from "./Profile/Profile";
 // import Register from "../Register/Register";
 // import Attendence from "./Attendence/Attendence";
 // import Profile from "./Profile/Profile";
@@ -48,6 +50,20 @@ function StudentDashboard({ match }) {
                 <li className="nav-item">
                   <div className="nav-link">
                     <Link
+                      to={`${match.url}/profile/`}
+                      style={{
+                        textDecoration: "None",
+                        color: "inherit",
+                        fontSize: 20,
+                      }}
+                    >
+                      Profile
+                    </Link>
+                  </div>
+                </li>
+                <li className="nav-item">
+                <div className="nav-link">
+                    <Link
                       to={`${match.url}/attendence/`}
                       style={{
                         textDecoration: "None",
@@ -59,7 +75,6 @@ function StudentDashboard({ match }) {
                     </Link>
                   </div>
                 </li>
-                <li className="nav-item"></li>
                 <li className="nav-item">
                   <div className="nav-link">
                     <div
@@ -85,12 +100,12 @@ function StudentDashboard({ match }) {
             <Route path={`${match.url}/`} exact>
               <Dashboard />
             </Route>
-            {/* <Route path={`${match.url}/register`} exact>
-              <Register />
-            </Route> */}
-            {/* <Route path={`${match.url}/profile`} exact>
+            <Route path={`${match.url}/profile`} exact>
               <Profile />
-            </Route> */}
+            </Route>
+            <Route path={`${match.url}/attendence`} exact>
+              <Attendence />
+            </Route>
           </Switch>
         </div>
       </div>
@@ -103,28 +118,27 @@ export default StudentDashboard;
 // Dashboard component for readability
 function Dashboard() {
   
-  const [studentCount, setStudentCount] = useState("");
-  const [data, setData] = useState("");
+  const [attendence, setAttendence] = useState("");
+  const [daysAttended, setDaysAttended] = useState("");
+  const [totdays, setTotDays] = useState("");
+  const [leave, setLeave] = useState('')
+  const [attendenbebydate, setAttendenceByDate] = useState("")
   const email = localStorage.getItem("email");
   console.log(process.env.NODE_ENV)
 
-//   useEffect(() => {
-//     fetch(`https://attendence-portal.herokuapp.com/admin/dashboard/teacher-detail/${email}`)
-//       .then((response) => response.json())
-//       .then((data) => {
-//         fetch(`https://attendence-portal.herokuapp.com/teacher/dashboard/count/${data.data.department}`)
-//       .then((response) => response.json())
-//       .then((data) => {
-//         console.log(data)
-//         setStudentCount(data.data);
-//       });
-//         setData(data.data.department)
-//       })
-//       .catch((error) => console.log(error));
-//   });
+  useEffect(() => {
+    fetch(`https://attendence-portal.herokuapp.com/student/dashboard/attendence-detail/${email}`)
+      .then((response) => response.json())
+      .then((data) => {
+          console.log(data)
+          setTotDays(data.totalDays)
+          setLeave(data.leave)
+          setDaysAttended(data.daysAttended)
+            // setAttendence(data)
+      })
+  });
     
-    
-  console.log(data, studentCount)
+
   return (
     <div className="d-flex flex-column" id="content-wrapper">
       <div id="content">
@@ -140,10 +154,10 @@ function Dashboard() {
                   <div className="row align-items-center no-gutters">
                     <div className="col me-2">
                       <div className="text-uppercase text-primary fw-bold text-xs mb-1">
-                        <span>Department</span>
+                        <span>Total days</span>
                       </div>
                       <div className="text-dark fw-bold h5 mb-0">
-                        <span>{data}</span>
+                        <span>{totdays}</span>
                       </div>
                     </div>
                     <div className="col-auto"></div>
@@ -157,10 +171,44 @@ function Dashboard() {
                   <div className="row align-items-center no-gutters">
                     <div className="col me-2">
                       <div className="text-uppercase text-success fw-bold text-xs mb-1">
-                        <span>Students</span>
+                        <span style={{color: 'green'}}>Days Present</span>
                       </div>
                       <div className="text-dark fw-bold h5 mb-0">
-                        <span>{studentCount}</span>
+                        <span>{daysAttended}</span>
+                      </div>
+                    </div>
+                    <div className="col-auto"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="col-md-6 col-xl-3 mb-4">
+              <div className="card shadow border-start-success py-2">
+                <div className="card-body">
+                  <div className="row align-items-center no-gutters">
+                    <div className="col me-2">
+                      <div className="text-uppercase text-success fw-bold text-xs mb-1">
+                        <span style={{color: 'grey'}}>Leave taken</span>
+                      </div>
+                      <div className="text-dark fw-bold h5 mb-0">
+                        <span>{leave}</span>
+                      </div>
+                    </div>
+                    <div className="col-auto"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="col-md-6 col-xl-3 mb-4">
+              <div className="card shadow border-start-success py-2">
+                <div className="card-body">
+                  <div className="row align-items-center no-gutters">
+                    <div className="col me-2">
+                      <div className="text-uppercase text-success fw-bold text-xs mb-1">
+                        <span style={{color: 'red'}}>Days absent</span>
+                      </div>
+                      <div className="text-dark fw-bold h5 mb-0">
+                        <span>{totdays - (leave+daysAttended)}</span>
                       </div>
                     </div>
                     <div className="col-auto"></div>
@@ -170,6 +218,7 @@ function Dashboard() {
             </div>
           </div>
         </div>
+        
       </div>
     </div>
   );

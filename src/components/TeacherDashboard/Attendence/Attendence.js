@@ -107,6 +107,22 @@ function Attendence() {
   };
 
   const handleAbsent = (id) => {
+    fetch(
+      `https://attendence-portal.herokuapp.com/teacher/dashboard/mark-attendence/${id}`,
+      {
+        method: "POST",
+        headers: {
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify({
+          present: 0,
+          leave: 0,
+        }),
+      }
+    )
+      .then((response) => response.json())
+      .then((data) => console.log(data))
+      .catch((error) => console.log(error));
     setArray([...array, id]);
   };
   //   console.log(array.includes("61ea3896144dc0ff711ada1b"));
