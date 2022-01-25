@@ -39,7 +39,7 @@ function HomePage() {
             history.push("/teacher-dashboard");
             }
             if(choice==="student"){
-              history.push("/")
+              history.push("/student-dashboard")
             }
           }
         }
@@ -47,7 +47,7 @@ function HomePage() {
       .catch((error) => {
         setMessage("Something went wrong");
         console.log(error);
-        setTimeout(() => setMessage(""), 4000);
+        // setTimeout(() => setMessage(""), 4000);
       });
   };
 

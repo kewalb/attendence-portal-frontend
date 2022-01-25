@@ -1,23 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { BrowserRouter, Switch, Route, Link } from "react-router-dom";
-import Edit from "../Edit/Edit";
-import Register from '../Register/Register'
-import Remove from "../Remove/Remove";
-import "./AdminDashboard.css";
+// import Register from "../Register/Register";
+// import Attendence from "./Attendence/Attendence";
+// import Profile from "./Profile/Profile";
 
-function AdminDashboard({match}) {
-
-  const history = useHistory()
-
-  useEffect(() => {
-
-  })
+function StudentDashboard({ match }) {
+  console.log(match);
+  const history = useHistory();
 
   const logout = () => {
-    localStorage.clear()
-    history.push('/')
-  }
+    localStorage.clear();
+    history.push("/");
+  };
 
   return (
     <BrowserRouter>
@@ -28,7 +23,7 @@ function AdminDashboard({match}) {
               <div className="navbar-brand d-flex justify-content-center align-items-center sidebar-brand m-0">
                 <div className="sidebar-brand-icon rotate-n-15"></div>
                 <div className="sidebar-brand-text mx-3">
-                  <span>Brand</span>
+                  <span>Welcome</span>
                 </div>
               </div>
 
@@ -38,14 +33,14 @@ function AdminDashboard({match}) {
                   <div className="nav-link">
                     <span>
                       <Link
-                        to={`${match.url}/register`}
+                        to={`${match.url}/`}
                         style={{
                           textDecoration: "None",
                           color: "inherit",
                           fontSize: 20,
                         }}
                       >
-                        Register
+                        Dashboard
                       </Link>
                     </span>
                   </div>
@@ -53,26 +48,14 @@ function AdminDashboard({match}) {
                 <li className="nav-item">
                   <div className="nav-link">
                     <Link
-                      to={`${match.url}/edit/`}
+                      to={`${match.url}/attendence/`}
                       style={{
                         textDecoration: "None",
                         color: "inherit",
                         fontSize: 20,
                       }}
                     >
-                      Edit
-                    </Link>
-                  </div>
-                  <div className="nav-link">
-                    <Link
-                      to={`${match.url}/remove/`}
-                      style={{
-                        textDecoration: "None",
-                        color: "inherit",
-                        fontSize: 20,
-                      }}
-                    >
-                      Remove
+                      Attendence
                     </Link>
                   </div>
                 </li>
@@ -80,12 +63,12 @@ function AdminDashboard({match}) {
                 <li className="nav-item">
                   <div className="nav-link">
                     <div
-                    onClick={logout}
+                      onClick={logout}
                       style={{
                         textDecoration: "None",
                         color: "inherit",
                         fontSize: 20,
-                        cursor: 'pointer'
+                        cursor: "pointer",
                       }}
                     >
                       Logout
@@ -100,18 +83,14 @@ function AdminDashboard({match}) {
           </nav>
           <Switch>
             <Route path={`${match.url}/`} exact>
-            <Dashboard />
+              <Dashboard />
             </Route>
-            <Route path={`${match.url}/register`} exact>
+            {/* <Route path={`${match.url}/register`} exact>
               <Register />
-            </Route>
-            <Route path={`${match.url}/edit`} exact>
-              <Edit />
-            </Route>
-            <Route path={`${match.url}/remove/`} exact>
-              <Remove />
-            </Route>
-            
+            </Route> */}
+            {/* <Route path={`${match.url}/profile`} exact>
+              <Profile />
+            </Route> */}
           </Switch>
         </div>
       </div>
@@ -119,29 +98,40 @@ function AdminDashboard({match}) {
   );
 }
 
-export default AdminDashboard;
-
+export default StudentDashboard;
 
 // Dashboard component for readability
 function Dashboard() {
-  const [teacherCount, setTeacherCount] = useState("");
+  
   const [studentCount, setStudentCount] = useState("");
+  const [data, setData] = useState("");
+  const email = localStorage.getItem("email");
+  console.log(process.env.NODE_ENV)
 
-  useEffect(() => {
-    fetch("https://attendence-portal.herokuapp.com/admin/dashboard/count")
-      .then((response) => response.json())
-      .then((data) => {
-        setStudentCount(data.countStudent);
-        setTeacherCount(data.countTeacher);
-      });
-  }, []);
-  // console.log(teacherCount, studentCount)
+//   useEffect(() => {
+//     fetch(`https://attendence-portal.herokuapp.com/admin/dashboard/teacher-detail/${email}`)
+//       .then((response) => response.json())
+//       .then((data) => {
+//         fetch(`https://attendence-portal.herokuapp.com/teacher/dashboard/count/${data.data.department}`)
+//       .then((response) => response.json())
+//       .then((data) => {
+//         console.log(data)
+//         setStudentCount(data.data);
+//       });
+//         setData(data.data.department)
+//       })
+//       .catch((error) => console.log(error));
+//   });
+    
+    
+  console.log(data, studentCount)
   return (
     <div className="d-flex flex-column" id="content-wrapper">
       <div id="content">
         <div className="container-fluid">
           <div className="d-sm-flex justify-content-between align-items-center mb-4">
             <h3 className="text-dark my-5">Dashboard</h3>
+            <p className="my-5 text-dark">Welcome {email}</p>
           </div>
           <div className="row">
             <div className="col-md-6 col-xl-3 mb-4">
@@ -150,10 +140,10 @@ function Dashboard() {
                   <div className="row align-items-center no-gutters">
                     <div className="col me-2">
                       <div className="text-uppercase text-primary fw-bold text-xs mb-1">
-                        <span>Teachers</span>
+                        <span>Department</span>
                       </div>
                       <div className="text-dark fw-bold h5 mb-0">
-                        <span>{teacherCount}</span>
+                        <span>{data}</span>
                       </div>
                     </div>
                     <div className="col-auto"></div>

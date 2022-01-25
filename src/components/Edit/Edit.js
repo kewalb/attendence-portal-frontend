@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Dropdown, Form } from "react-bootstrap";
 import "./Edit.css";
 
@@ -6,19 +6,26 @@ function Edit() {
   const [choice, setChoice] = useState("");
   const [email, setEmail] = useState("");
   const [formData, setFormData] = useState([]);
+  const [renderComponent, setRenderComponent] = useState(false);
+  const inputEl = useRef(null);
 
-  // console.log(formData);
-
-  const handleSearch = async () => {
-    await fetch(`https://attendence-portal.herokuapp.com/admin/dashboard/${choice}-detail/${email}`)
+  const handleSearch = () => {
+    console.log("hello");
+    fetch(
+      `https://attendence-portal.herokuapp.com/admin/dashboard/${choice}-detail/${inputEl.current.value}`
+    )
       .then((response) => response.json())
-      .then((data) => setFormData([data]))
+      .then((data) => {
+        setFormData(data);
+        setRenderComponent(true);
+      })
       .catch((error) => console.log(error));
   };
 
   const handleChange = (e) => {
-    setEmail(e.target.value)
-  }
+    // setEmail(e.target.value)
+    // console.log(inputEl.current.value);
+  };
 
   return (
     <section
@@ -46,8 +53,9 @@ function Edit() {
               className="form-control"
               type="email"
               name="email"
-              value = {email}
+              defaultValue={email}
               placeholder={`Enter email of ${choice}`}
+              ref={inputEl}
               onChange={handleChange}
             />
           </div>
@@ -55,7 +63,7 @@ function Edit() {
             <button
               className="btn btn-primary d-block w-100"
               type="button"
-              onClick={(e) => handleSearch}
+              onClick={handleSearch}
             >
               Search
             </button>
@@ -65,44 +73,48 @@ function Edit() {
         ""
       )}
 
-     {choice && email ? choice === "teacher" ? <EditTeacher parameter = {email} /> : <EditStudent /> : " "}
-
+      {renderComponent ? (
+        choice === "teacher" ? (
+          <EditTeacher parameter={formData} />
+        ) : (
+          <EditStudent parameter={formData}/>
+        )
+      ) : (
+        " "
+      )}
     </section>
   );
 }
 
 // form to update teacher details
 function EditTeacher({ parameter }) {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [gender, setGender] = useState("");
-  const [qual, setQual] = useState("");
-  const [formData, setFormData] = useState([])
 
-  console.log(formData, parameter);
 
-  useEffect( () => {
-    console.log("hello")
-     fetch(`https://attendence-portal.herokuapp.com/admin/dashboard/teacher-detail/${parameter}`)
-      .then((response) => response.json())
-      .then((data) => setFormData(data))
-      .catch((error) => console.log(error));
-  })
+  const name = useRef("");
+  const email = useRef("");
+  const [gender, setGender] = useState("")
+  const [qual, setQual] = useState("")
+  const dept = useRef("");
+
 
   const handleSubmit = () => {
-    fetch(`https://attendence-portal.herokuapp.com/teacher/signup`, {
-      method: "POST",
-      headers: {
-        "Content-type": "application/json",
-      },
-      body: JSON.stringify({
-        email,
-        name,
-        gender,
-        qualification: qual,
-        role: "teacher",
-      }),
-    })
+    fetch(
+      `https://attendence-portal.herokuapp.com/admin/dashboard/update-teacher/${parameter.data._id}`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify({
+          email: email.current.value,
+          name: name.current.value,
+          gender: gender,
+          qualification: qual,
+          role: "teacher",
+          department: dept.current.value,
+        }),
+      }
+    )
       .then((response) => response.json())
       .then((data) => {
         if (data.message) {
@@ -121,10 +133,6 @@ function EditTeacher({ parameter }) {
     >
       <h1 style={{ color: "black" }}>Enter Teacher's Details.</h1>
       <form>
-        <h2 className="visually-hidden">Reset your password</h2>
-        <div className="illustration">
-          <i className="icon ion-ios-navigate"></i>
-        </div>
         <div className="mb-3">
           <label style={{ float: "left" }}>Name:</label>
           <input
@@ -132,19 +140,30 @@ function EditTeacher({ parameter }) {
             type="text"
             name="name"
             placeholder="Enter name"
-            defaultValue={formData[0].data.name}
-            onChange={(e) => setName(e.target.value)}
+            defaultValue={parameter.data.name}
+            ref={name}
           />
         </div>
         <div className="mb-3">
-          <label style={{ float: "left" }}>email:</label>
+          <label style={{ float: "left" }}>Email:</label>
           <input
             className="form-control"
             type="email"
             name="email"
             placeholder="Enter Email"
-            defaultValue={formData[0].data.email}
-            onChange={(e) => setEmail(e.target.value)}
+            defaultValue={parameter.data.email}
+            ref={email}
+          />
+        </div>
+        <div className="mb-3">
+          <label style={{ float: "left" }}>Department:</label>
+          <input
+            className="form-control"
+            type="text"
+            name="dept"
+            placeholder="Enter Department"
+            defaultValue={parameter.data.department}
+            ref={dept}
           />
         </div>
 
@@ -156,7 +175,7 @@ function EditTeacher({ parameter }) {
             name="group1"
             type="radio"
             value="Male"
-            // defaultChecked="false"
+            defaultChecked={parameter.data.gender === "Male"}
             onChange={(e) => setGender(e.target.value)}
           />
           <Form.Check
@@ -165,16 +184,20 @@ function EditTeacher({ parameter }) {
             name="group1"
             type="radio"
             value="Female"
-            // defaultChecked={data[0].data.gender === "Female"}
+            defaultChecked={parameter.data.gender === "Female"}
             onChange={(e) => setGender(e.target.value)}
           />
         </div>
 
         <div className="mb-3">
           <label style={{ float: "left" }}>Qualification:</label>
-          <Dropdown onSelect={(eventKey, e) => setQual(eventKey)}>
+          <Dropdown 
+          onSelect={(eventKey, e) => setQual(eventKey)} 
+          >
             <Dropdown.Toggle variant="light" id="dropdown-basic">
-              {qual ? qual : "Select a choice"}
+              {parameter.data.qualification != ""
+                ? parameter.data.qualification
+                : qual ? qual : "Select a choice"}
             </Dropdown.Toggle>
 
             <Dropdown.Menu>
@@ -193,7 +216,7 @@ function EditTeacher({ parameter }) {
             type="button"
             onClick={handleSubmit}
           >
-            Create
+            Edit
           </button>
         </div>
       </form>
@@ -202,28 +225,31 @@ function EditTeacher({ parameter }) {
 }
 
 // form for student update operation.
-function EditStudent({ data }) {
-  const [name, setName] = useState("");
-  const [password, setPassword] = useState("");
-  const [email, setEmail] = useState("");
+function EditStudent({ parameter }) {
+
+
   const [gender, setGender] = useState("");
-  const [department, setDepartment] = useState("");
-  const [roll, setRoll] = useState("");
+
+  const name = useRef("")
+  const email = useRef("")
+  const department = useRef("")
+  const roll = useRef('')
+
+  console.log(gender)
 
   const handleSubmit = () => {
-    fetch(`https://attendence-portal.herokuapp.com/student/signup`, {
-      method: "POST",
+    fetch(`https://attendence-portal.herokuapp.com/admin/dashboard/update-student/${parameter.data._id}`, {
+      method: "PUT",
       headers: {
         "Content-type": "application/json",
       },
       body: JSON.stringify({
-        email,
-        password,
-        name,
+        email: email.current.value,
+        name: name.current.value,
         gender,
         role: "student",
-        department,
-        roll,
+        department: department.current.value,
+        roll: roll.current.value,
       }),
     })
       .then((response) => response.json())
@@ -243,10 +269,6 @@ function EditStudent({ data }) {
     >
       <h1 style={{ color: "black" }}>Enter Student's Details.</h1>
       <form>
-        <h2 className="visually-hidden">Reset your password</h2>
-        <div className="illustration">
-          <i className="icon ion-ios-navigate"></i>
-        </div>
         <div className="mb-3">
           <label style={{ float: "left" }}>Name:</label>
           <input
@@ -254,47 +276,41 @@ function EditStudent({ data }) {
             type="text"
             name="name"
             placeholder="Enter name"
-            onChange={(e) => setName(e.target.value)}
+            defaultValue={parameter.data.name}
+            ref={name}
           />
         </div>
         <div className="mb-3">
-          <label style={{ float: "left" }}>email:</label>
+          <label style={{ float: "left" }}>Email:</label>
           <input
             className="form-control"
             type="email"
             name="email"
             placeholder="Enter Email"
-            onChange={(e) => setEmail(e.target.value)}
+            defaultValue={parameter.data.email}
+            ref={email}
           />
         </div>
         <div className="mb-3">
-          <label style={{ float: "left" }}>Password:</label>{" "}
-          <input
-            className="form-control"
-            type="password"
-            name="password"
-            placeholder="Enter password"
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </div>
-        <div className="mb-3">
-          <label style={{ float: "left" }}>department:</label>
+          <label style={{ float: "left" }}>Department:</label>
           <input
             className="form-control"
             type="text"
             name="dept"
             placeholder="Enter Department name"
-            onChange={(e) => setDepartment(e.target.value)}
+            defaultValue={parameter.data.department}
+            ref={department}
           />
         </div>
         <div className="mb-3">
-          <label style={{ float: "left" }}>roll:</label>
+          <label style={{ float: "left" }}>Roll:</label>
           <input
             className="form-control"
             type="text"
             name="roll"
             placeholder="Enter Studennt roll number"
-            onChange={(e) => setRoll(e.target.value)}
+            defaultValue={parameter.data.roll}
+            ref={roll}
           />
         </div>
 
@@ -306,6 +322,7 @@ function EditStudent({ data }) {
             name="group1"
             type="radio"
             value="Male"
+            defaultChecked={parameter.data.gender === "Male"}
             onChange={(e) => setGender(e.target.value)}
           />
           <Form.Check
@@ -314,6 +331,7 @@ function EditStudent({ data }) {
             name="group1"
             type="radio"
             value="Female"
+            defaultChecked={parameter.data.gender === "Female"}
             onChange={(e) => setGender(e.target.value)}
           />
         </div>
@@ -324,7 +342,7 @@ function EditStudent({ data }) {
             type="button"
             onClick={handleSubmit}
           >
-            Create
+            Edit
           </button>
         </div>
       </form>

@@ -122,7 +122,7 @@ function Profile() {
                     <input
                       type="text"
                       className="form-control"
-                      id="phone"
+                      id="role"
                       value={role}
                       readOnly
                     />
@@ -134,7 +134,7 @@ function Profile() {
                     <input
                       type="name"
                       className="form-control"
-                      id="Street"
+                      id="Qual"
                       defaultValue={qual}
                       readOnly
                     />
@@ -153,7 +153,7 @@ function Profile() {
                     <input
                       type="name"
                       className="form-control"
-                      id="ciTy"
+                      id="gender"
                       value={gen==="M"? "Male":"Female"}
                       readOnly
                     />
@@ -165,7 +165,7 @@ function Profile() {
                     <input
                       type="text"
                       className="form-control"
-                      id="sTate"
+                      id="department"
                       readOnly
                       value={dept}
                     />

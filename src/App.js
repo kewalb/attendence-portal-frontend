@@ -6,6 +6,7 @@ import ForgotPasswordForm from "./components/ForgotPasswordForm/ForgotPasswordFo
 import AdminDashboard from "./components/AdminDashboard/AdminDashboard";
 import ProtectedRoute from "./components/ProtectedRoutes";
 import TeacherDashboard from "./components/TeacherDashboard/TeacherDashboard";
+import StudentDashboard from "./StudentDashboard/StudentDashboard";
 
 function App() {
   return (
@@ -25,6 +26,9 @@ function App() {
             {/* <AdminDashboard /> */}
           </ProtectedRoute>
           <ProtectedRoute path="/teacher-dashboard" component={TeacherDashboard}>
+            {/* <AdminDashboard /> */}
+          </ProtectedRoute>
+          <ProtectedRoute path="/student-dashboard" component={StudentDashboard}>
             {/* <AdminDashboard /> */}
           </ProtectedRoute>
         </Switch>
