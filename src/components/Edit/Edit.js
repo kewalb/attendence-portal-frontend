@@ -1,10 +1,10 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, {  useRef, useState } from "react";
 import { Dropdown, Form } from "react-bootstrap";
 import "./Edit.css";
 
 function Edit() {
   const [choice, setChoice] = useState("");
-  const [email, setEmail] = useState("");
+  // const [email, setEmail] = useState("");
   const [formData, setFormData] = useState([]);
   const [renderComponent, setRenderComponent] = useState(false);
   const inputEl = useRef(null);
@@ -53,7 +53,6 @@ function Edit() {
               className="form-control"
               type="email"
               name="email"
-              defaultValue={email}
               placeholder={`Enter email of ${choice}`}
               ref={inputEl}
               onChange={handleChange}
@@ -195,7 +194,7 @@ function EditTeacher({ parameter }) {
           onSelect={(eventKey, e) => setQual(eventKey)} 
           >
             <Dropdown.Toggle variant="light" id="dropdown-basic">
-              {parameter.data.qualification != ""
+              {parameter.data.qualification !== ""
                 ? parameter.data.qualification
                 : qual ? qual : "Select a choice"}
             </Dropdown.Toggle>

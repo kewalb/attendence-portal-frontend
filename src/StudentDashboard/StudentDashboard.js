@@ -118,11 +118,9 @@ export default StudentDashboard;
 // Dashboard component for readability
 function Dashboard() {
   
-  const [attendence, setAttendence] = useState("");
   const [daysAttended, setDaysAttended] = useState("");
   const [totdays, setTotDays] = useState("");
   const [leave, setLeave] = useState('')
-  const [attendenbebydate, setAttendenceByDate] = useState("")
   const email = localStorage.getItem("email");
   console.log(process.env.NODE_ENV)
 

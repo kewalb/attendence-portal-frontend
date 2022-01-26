@@ -20,7 +20,7 @@ function Attendence() {
           .catch((error) => console.log(error));
       })
       .catch((error) => console.log(error));
-  }, []);
+  });
 
   const handleAttendence = () => {
     // const value = {

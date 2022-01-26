@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { Dropdown, Table } from "react-bootstrap";
-import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import "./Remove.css";
 
 function Remove() {
