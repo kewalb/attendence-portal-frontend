@@ -142,7 +142,7 @@ function HomePage() {
             Forgot Password?{" "}
             <span
               style={{ color: "cadetblue", cursor: "pointer" }}
-              onClick={() => history.push("forgot-password")}
+              onClick={() => history.push("/forgot-password")}
             >
               Click Here
             </span>
