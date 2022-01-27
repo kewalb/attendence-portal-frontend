@@ -232,8 +232,6 @@ function EditStudent({ parameter }) {
   const department = useRef("")
   const roll = useRef('')
 
-  console.log(gender)
-
   const handleSubmit = () => {
     fetch(`https://attendence-portal.herokuapp.com/admin/dashboard/update-student/${parameter.data._id}`, {
       method: "PUT",

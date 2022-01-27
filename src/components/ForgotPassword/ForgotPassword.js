@@ -26,15 +26,12 @@ function ForgotPassword() {
           setMessage(data.message);
           setTimeout(() => setMessage(""), 4000);
         }
-        console.log(data);
       })
       .catch((error) => {
         setMessage("Something went wrong");
         setTimeout(() => setMessage(""), 4000);
       });
   };
-
-  //   console.log(email, choice)
 
   return (
     <div style={{ height: "auto" }}>

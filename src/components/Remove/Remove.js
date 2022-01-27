@@ -7,8 +7,6 @@ function Remove() {
   const [email, setEmail] = useState("");
   const [data, setData] = useState("");
 
-  console.log(data);
-
   const handleSubmit = () => {
     fetch(`https://attendence-portal.herokuapp.com/admin/dashboard/${choice}-detail/${email}`)
       .then((response) => response.json())
@@ -44,7 +42,6 @@ function Remove() {
       });
   }
 
-  console.log(choice, email);
   return (
     <section
       className="login-clean"

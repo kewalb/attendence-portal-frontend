@@ -8,7 +8,6 @@ import Profile from "./Profile/Profile";
 // import Profile from "./Profile/Profile";
 
 function StudentDashboard({ match }) {
-  console.log(match);
   const history = useHistory();
 
   const logout = () => {
@@ -130,7 +129,6 @@ function Dashboard() {
     fetch(`https://attendence-portal.herokuapp.com/student/dashboard/attendence-detail/${email}`)
       .then((response) => response.json())
       .then((data) => {
-          console.log(data)
           setTotDays(data.totalDays)
           setLeave(data.leave)
           setDaysAttended(data.daysAttended)

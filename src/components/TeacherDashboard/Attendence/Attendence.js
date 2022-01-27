@@ -4,7 +4,6 @@ function Attendence() {
   const [array, setArray] = useState([]);
   const [data, setData] = useState([]);
   const email = localStorage.getItem("email");
-  // console.log(data.length)
 
   useEffect(() => {
     fetch(
@@ -23,12 +22,7 @@ function Attendence() {
   });
 
   const handleAttendence = () => {
-    // const value = {
-    //   marked: true,
-    //   date: Date.now(),
-    // };
-    // localStorage.setItem("attendence", value);
-    // console.log(localStorage.getItem("attendence"))
+    
     if (array.length !== data.length) {
       alert("Please mark attendence of all students");
       return;
@@ -59,10 +53,6 @@ function Attendence() {
     const todayDate = getDate().split("-").reverse().join('-');
     const localStorageDate = localStorage.getItem("attendenceDate")
     const markedDate = new Date(localStorageDate)
-    // console.log(localStorageDate)
-    // console.log(markedDate)
-    // console.log(todayDate)
-    // console.log( new Date(todayDate) >= markedDate)
     
    return (new Date(todayDate) > markedDate)
  }
@@ -125,7 +115,7 @@ function Attendence() {
       .catch((error) => console.log(error));
     setArray([...array, id]);
   };
-  //   console.log(array.includes("61ea3896144dc0ff711ada1b"));
+
 
   return (
     <section

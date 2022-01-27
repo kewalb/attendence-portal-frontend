@@ -8,7 +8,6 @@ function ForgotPasswordForm() {
     const [message, setMessage] = useState('')
     const {token, choice} = useParams()
 
-    console.log(password)
  
     const handleSubmit = () => {
         if(password !== passwordConfirm){
@@ -27,7 +26,6 @@ function ForgotPasswordForm() {
             setMessage(data.message);
             setTimeout(() => setMessage(""), 4000);
           }
-          console.log(data);
         })
         .catch((error) => {
           setMessage("Something went wrong");

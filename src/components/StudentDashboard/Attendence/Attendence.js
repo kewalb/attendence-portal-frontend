@@ -22,7 +22,6 @@ function Attendence() {
     
   };
 
-  console.log(attendenceByDate);
   return (
     <div className="container m-4" style={{textAlign: 'center'}}>
         <h2 className="text-dark m-4">Attendence by date</h2><br />

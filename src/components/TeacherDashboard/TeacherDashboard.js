@@ -6,7 +6,6 @@ import Attendence from "./Attendence/Attendence";
 import Profile from "./Profile/Profile";
 
 function TeacherDashboard({ match }) {
-  console.log(match);
   const history = useHistory();
 
   const logout = () => {
@@ -124,7 +123,6 @@ function Dashboard() {
   const [data, setData] = useState("");
   const [totalDays, setTotalDays] = useState("")
   const email = localStorage.getItem("email");
-  console.log(data)
 
   useEffect(() => {
     fetch(`https://attendence-portal.herokuapp.com/admin/dashboard/teacher-detail/${email}`)
@@ -133,7 +131,6 @@ function Dashboard() {
         fetch(`https://attendence-portal.herokuapp.com/teacher/dashboard/count/${data.data.department}`)
       .then((response) => response.json())
       .then((data) => {
-        console.log(data)
         setStudentCount(data.data);
       });
         setData(data.data.department)

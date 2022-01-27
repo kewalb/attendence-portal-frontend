@@ -11,7 +11,6 @@ const email = localStorage.getItem('email');
 
 const validateToken = () => {
     if(user && email && token){
-        console.log(email, user, token)
         const {exp} = decode(token)
         if (Date.now() >= exp * 1000) {
             return false;

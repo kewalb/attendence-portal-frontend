@@ -133,7 +133,6 @@ function Dashboard() {
         setTeacherCount(data.countTeacher);
       });
   }, []);
-  // console.log(teacherCount, studentCount)
   return (
     <div className="d-flex flex-column" id="content-wrapper">
       <div id="content">
