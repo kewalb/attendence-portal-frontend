@@ -6,7 +6,7 @@ import ForgotPasswordForm from "./components/ForgotPasswordForm/ForgotPasswordFo
 import AdminDashboard from "./components/AdminDashboard/AdminDashboard";
 import ProtectedRoute from "./components/ProtectedRoutes";
 import TeacherDashboard from "./components/TeacherDashboard/TeacherDashboard";
-import StudentDashboard from "./StudentDashboard/StudentDashboard";
+import StudentDashboard from "./components/StudentDashboard/StudentDashboard";
 
 function App() {
   return (
