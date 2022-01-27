@@ -6,11 +6,12 @@ import "./ForgotPassword.css";
 function ForgotPassword() {
   const [choice, setChoice] = useState("");
   const [email, setEmail] = useState("");
-  const [message, setMessage] = useState("");
   const history = useHistory();
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
   };
+
+  console.log(choice, email)
 
   const handleSubmit = () => {
     fetch(`https://attendence-portal.herokuapp.com/${choice}/forgot-password`, {
@@ -23,32 +24,21 @@ function ForgotPassword() {
       .then((response) => response.json())
       .then((data) => {
         if (data.message) {
-          setMessage(data.message);
-          setTimeout(() => setMessage(""), 4000);
+          alert(data.message)
+          console.log(data)
         }
       })
       .catch((error) => {
-        setMessage("Something went wrong");
-        setTimeout(() => setMessage(""), 4000);
+        console.log(error)
+        alert("Something went wrong")
+        
       });
   };
 
   return (
     <div style={{ height: "auto" }}>
       <section className="login-clean" style={{ minHeight: "610px" }}>
-        {message ? (
-          <div
-            className={
-              message === "Email Sent"
-                ? "alert alert-success"
-                : "alert alert-danger"
-            }
-          >
-            <span>{message}</span>
-          </div>
-        ) : (
-          ""
-        )}
+       
         <form>
           <h2 className="visually-hidden">Please enter your email</h2>
           <div className="illustration">
