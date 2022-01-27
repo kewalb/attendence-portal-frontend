@@ -36,6 +36,7 @@ function RegisterTeacher() {
   const [email, setEmail] = useState("");
   const [gender, setGender] = useState("");
   const [qual, setQual] = useState("");
+  const [department, setDepartment] = useState("");
 
   const handleSubmit = () => {
     fetch(`https://attendence-portal.herokuapp.com/teacher/signup`, {
@@ -43,7 +44,7 @@ function RegisterTeacher() {
       headers: {
         "Content-type": "application/json",
       },
-      body: JSON.stringify({ email, password, name, gender, qualification: qual, role: "teacher" }),
+      body: JSON.stringify({ email, password, name, gender, qualification: qual, role: "teacher", department }),
     })
       .then((response) => response.json())
       .then((data) => {
@@ -98,7 +99,16 @@ function RegisterTeacher() {
             onChange={(e) => setPassword(e.target.value)}
           />
         </div>
-
+        <div className="mb-3">
+          <label style={{ float: "left" }}>Department:</label>
+          <input
+            className="form-control"
+            type="text"
+            name="dept"
+            placeholder="Enter Department"
+            onChange={(e) => setDepartment(e.target.value)}
+          />
+        </div>
         <div className="mb-3">
           <label style={{ float: "left" }}>Gender:</label>
           <Form.Check

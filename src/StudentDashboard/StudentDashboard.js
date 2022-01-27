@@ -12,7 +12,9 @@ function StudentDashboard({ match }) {
   const history = useHistory();
 
   const logout = () => {
-    localStorage.clear();
+    localStorage.removeItem("user");
+    localStorage.removeItem("token");
+    localStorage.removeItem("email");
     history.push("/");
   };
 

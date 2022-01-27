@@ -53,6 +53,7 @@ function HomePage() {
 
   return (
     <section className="register-photo">
+      <h1 className="text-dark mb-2">WELCOME TO ATTENDANCE PORTAL.</h1>
       {message ? (
         <div
           className={
@@ -80,6 +81,7 @@ function HomePage() {
               name="email"
               placeholder="Email"
               onChange={handleEmailChange}
+              autoComplete="username"
             />
           </div>
           <div className="mb-3">
@@ -89,6 +91,7 @@ function HomePage() {
               type="password"
               name="password"
               placeholder="Password"
+              autoComplete="current-password"
               onChange={handlePasswordChange}
             />
           </div>

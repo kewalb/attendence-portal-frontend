@@ -4,13 +4,11 @@ import "./Edit.css";
 
 function Edit() {
   const [choice, setChoice] = useState("");
-  // const [email, setEmail] = useState("");
   const [formData, setFormData] = useState([]);
   const [renderComponent, setRenderComponent] = useState(false);
   const inputEl = useRef(null);
 
   const handleSearch = () => {
-    console.log("hello");
     fetch(
       `https://attendence-portal.herokuapp.com/admin/dashboard/${choice}-detail/${inputEl.current.value}`
     )

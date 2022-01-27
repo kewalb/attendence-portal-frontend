@@ -10,12 +10,10 @@ function AdminDashboard({match}) {
 
   const history = useHistory()
 
-  useEffect(() => {
-
-  })
-
   const logout = () => {
-    localStorage.clear()
+    localStorage.removeItem("user");
+    localStorage.removeItem("token");
+    localStorage.removeItem("email");
     history.push('/')
   }
 

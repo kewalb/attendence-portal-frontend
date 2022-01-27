@@ -10,7 +10,9 @@ function TeacherDashboard({ match }) {
   const history = useHistory();
 
   const logout = () => {
-    localStorage.clear();
+    localStorage.removeItem("user");
+    localStorage.removeItem("token");
+    localStorage.removeItem("email");
     history.push("/");
   };
 
@@ -120,6 +122,7 @@ function Dashboard() {
   
   const [studentCount, setStudentCount] = useState("");
   const [data, setData] = useState("");
+  const [totalDays, setTotalDays] = useState("")
   const email = localStorage.getItem("email");
   console.log(data)
 
@@ -138,8 +141,28 @@ function Dashboard() {
       .catch((error) => console.log(error));
   });
     
+    const handleUpdate = () => {
+      fetch(`https://attendence-portal.herokuapp.com/teacher/dashboard/update-totaldays`, {
+            method: "PUT",
+            headers: {
+              "Content-type": "application/json",
+            },
+            body: JSON.stringify({
+              totalDays
+            }),
+          })
+            .then((response) => response.json())
+            .then((data) => {
+              if (data.message) {
+                alert(data.message);
+              }
+            })
+            .catch((error) => {
+              alert("Something went wrong", error);
+            });
+        };
     
-  console.log(data, studentCount)
+
   return (
     <div className="d-flex flex-column" id="content-wrapper">
       <div id="content">
@@ -182,6 +205,17 @@ function Dashboard() {
                   </div>
                 </div>
               </div>
+            </div>
+
+            <div className="col-md-12 col-xl-12 mb-4">
+              Enter total number of days.
+              <input 
+              type="number"
+              className="form-control"
+              placeholder="Enter number of working days"
+              onChange={(e) => setTotalDays(e.target.value)}
+              />
+              <button className="btn btn-primary m-3" onClick={handleUpdate}>Submit</button>
             </div>
           </div>
         </div>
