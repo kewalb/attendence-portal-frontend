@@ -137,7 +137,7 @@ function RegisterTeacher() {
             </Dropdown.Toggle>
 
             <Dropdown.Menu>
-              <Dropdown.Item eventKey="B.ed">D.ed</Dropdown.Item>
+              <Dropdown.Item eventKey="B.ed">B.ed</Dropdown.Item>
               <Dropdown.Item eventKey="M.ed">M.ed</Dropdown.Item>
               <Dropdown.Item eventKey="Other teaching certification">
                 Other teaching certification

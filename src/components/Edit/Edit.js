@@ -89,8 +89,8 @@ function EditTeacher({ parameter }) {
 
   const name = useRef("");
   const email = useRef("");
-  const [gender, setGender] = useState("")
-  const [qual, setQual] = useState("")
+  const [gender, setGender] = useState(parameter.data.gender)
+  const [qual, setQual] = useState(parameter.data.qualification)
   const dept = useRef("");
 
 
@@ -198,7 +198,7 @@ function EditTeacher({ parameter }) {
             </Dropdown.Toggle>
 
             <Dropdown.Menu>
-              <Dropdown.Item eventKey="B.ed">D.ed</Dropdown.Item>
+              <Dropdown.Item eventKey="B.ed">B.ed</Dropdown.Item>
               <Dropdown.Item eventKey="M.ed">M.ed</Dropdown.Item>
               <Dropdown.Item eventKey="Other teaching certification">
                 Other teaching certification
@@ -225,7 +225,7 @@ function EditTeacher({ parameter }) {
 function EditStudent({ parameter }) {
 
 
-  const [gender, setGender] = useState("");
+  const [gender, setGender] = useState(parameter.data.gender);
 
   const name = useRef("")
   const email = useRef("")
