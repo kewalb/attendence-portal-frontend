@@ -26,7 +26,7 @@ function AdminDashboard({match}) {
               <div className="navbar-brand d-flex justify-content-center align-items-center sidebar-brand m-0">
                 <div className="sidebar-brand-icon rotate-n-15"></div>
                 <div className="sidebar-brand-text mx-3">
-                  <span>Brand</span>
+                  <span>Welcome</span>
                 </div>
               </div>
 
