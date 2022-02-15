@@ -35,11 +35,52 @@ function HomePage() {
             if (choice === "admin") {
               history.push("/admin-dashboard");
             }
-            if(choice === "teacher"){
-            history.push("/teacher-dashboard");
+            if (choice === "teacher") {
+              history.push("/teacher-dashboard");
             }
-            if(choice==="student"){
-              history.push("/student-dashboard")
+            if (choice === "student") {
+              history.push("/student-dashboard");
+            }
+          }
+        }
+      })
+      .catch((error) => {
+        setMessage("Something went wrong");
+        console.log(error);
+        // setTimeout(() => setMessage(""), 4000);
+      });
+  };
+
+  const handleGuest = () => {
+    const email = process.env.REACT_APP_EMAIL;
+    const password = process.env.REACT_APP_PASSWORD;
+    if (!choice) {
+      alert("please select a choice");
+      return
+    }
+    fetch(`https://attendence-portal.herokuapp.com/${choice}/login`, {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json",
+      },
+      body: JSON.stringify({ email, password }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.message) {
+          setMessage(data.message);
+          if (data.message === "Login Success") {
+            localStorage.setItem("token", data.jwtToken);
+            localStorage.setItem("user", data.name);
+            localStorage.setItem("email", data.email);
+            if (choice === "admin") {
+              history.push("/admin-dashboard");
+            }
+            if (choice === "teacher") {
+              history.push("/teacher-dashboard");
+            }
+            if (choice === "student") {
+              history.push("/student-dashboard");
             }
           }
         }
@@ -126,6 +167,13 @@ function HomePage() {
               onClick={handleSubmit}
             >
               Login
+            </button>
+            <button
+              className="btn btn-primary d-block w-100"
+              type="button"
+              onClick={handleGuest}
+            >
+              Guest
             </button>
           </div>
 
